@@ -1,11 +1,12 @@
-import paytmchecksum from '../paytm/PaytmChecksum.js';
-import { paytmParams, paytmMerchantkey } from '../index.js';
-import formidable from 'formidable';
-import https from 'https';
+const paytmchecksum = require('../paytm/PaytmChecksum.js');
+const { paytmParams, paytmMerchantkey } = require('../index.js');
+const formidable = require('formidable');
+const https = require('https');
 
 
 
-export const addPaymentGateway = async (request, response) => {
+
+exports.addPaymentGateway = async (request, response) => {
     const paytmCheckSum = await paytmchecksum.generateSignature(paytmParams, paytmMerchantkey);
     try {
         const params = {
@@ -18,7 +19,7 @@ export const addPaymentGateway = async (request, response) => {
     }
 }
 
-export const paymentResponse = (request, response) => {
+exports.paymentResponse = (request, response) => {
 
     const form = new formidable.IncomingForm();
     const paytmCheckSum = request.body.CHECKSUMHASH;

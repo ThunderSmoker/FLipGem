@@ -4,7 +4,7 @@ exports.flipGemConnector = async () => {
     try {
         const [owner] = await ethers.getSigners();
 
-        const flipGemAddress = "0xc24b86eD45605d99607c58924904FC599eD01B3b"; 
+        const flipGemAddress = "0x6bF669B9e89BfDEF6E81EE96711428F472Fd5B45"; 
       
       
         const abi = [
@@ -300,7 +300,7 @@ exports.flipGemConnector = async () => {
 exports.RewardRulesConnector=async() => {
     const [owner] = await ethers.getSigners();
 
-    const rewardRulesAddress = "0x9f3B64e076BeEff01807B60aF4156357429754fc"; 
+    const rewardRulesAddress = "0x38c50551Bb562D4dFFE270Df512fFb6f5E5D06a3"; 
   
    
     const abi = [
@@ -378,11 +378,6 @@ exports.RewardRulesConnector=async() => {
               "internalType": "address",
               "name": "user",
               "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
             }
           ],
           "name": "decayReward",
@@ -460,6 +455,94 @@ exports.RewardRulesConnector=async() => {
           "type": "function"
         },
         {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "index",
+              "type": "uint256"
+            }
+          ],
+          "name": "getTransaction",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTransactionHistoryLength",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "user",
+              "type": "address"
+            }
+          ],
+          "name": "getUserTransactions",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "from",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "to",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "timestamp",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct RewardRules.Transaction[]",
+              "name": "",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
           "inputs": [],
           "name": "owner",
           "outputs": [
@@ -513,6 +596,40 @@ exports.RewardRulesConnector=async() => {
           "name": "setRewardForAction",
           "outputs": [],
           "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "transactionHistory",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
           "type": "function"
         },
         {

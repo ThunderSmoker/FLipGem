@@ -1,6 +1,6 @@
 const user = require("../model/userSchema");
 const { flipGemConnector, RewardRulesConnector } = require("../utils/flipgem");
-
+const {formatUnixTimestamp} = require('../utils/getDate');
 const { ethers } = require("hardhat");
 
 const getAmount = async (req, res) => {
@@ -145,6 +145,38 @@ const decayReward= async (req, res) => {
     res.status(200).json({ msg: "Reward transfered successfully" });
 }
 
+const getUserTransactions=async(req,res)=>{
+    try {
+        const { userId } = req.body;
+        const myuser = await user.findById(userId);
+
+        if (!myuser) {
+            return res.status(400).json({ msg: "User not found" });
+        }
+
+        if (!myuser.walletAddress) {
+            return res.status(400).json({ msg: "Wallet address not found for the user" });
+        }
+
+        const useraddress = myuser.walletAddress;
+        const rewardRules=await RewardRulesConnector();
+        const resp=await rewardRules.getUserTransactions(useraddress);
+        const data = [];
+        for(let i = 0; i < resp.length; ++i){
+            const obj = {
+                "from":resp[i][0],
+                "to":resp[i][1],
+                "amount":resp[i][2].toString(10),
+                "timestamp": formatUnixTimestamp(resp[i][3].toString(10))
+            }
+            data.push(obj)
+        }
+        return res.status(200).json({transactions:data});
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ msg: "Internal server error" });
+    }
+}
 module.exports = {
     getAmount,
     setRewardRulesForAction,
@@ -153,5 +185,6 @@ module.exports = {
     setCoupenAmount,
     transferReward,
     deductCoupen,
-    decayReward
+    decayReward,
+    getUserTransactions
 };
