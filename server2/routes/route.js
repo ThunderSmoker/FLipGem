@@ -1,9 +1,27 @@
-import express from  'express';
-import { getProductById, getProducts } from '../controller/product-controller.js';
-import { userSignUp, userLogIn } from '../controller/user-controller.js';
-// import { addItemInCart } from '../controller/cart-controller.js';
-import { addPaymentGateway, paymentResponse } from '../controller/payment-controller.js';
-import { getAmount , setRewardRulesForAction ,getRewardRulesForAction, getCoupenAmount, setCoupenAmount, transferReward,decayReward,deductCoupen  } from '../controller/flipgem-controller.js';
+const express = require('express');
+const {
+    getProductById,
+    getProducts
+} = require('../controller/product-controller.js');
+const {
+    userSignUp,
+    userLogIn
+} = require('../controller/user-controller.js');
+// const { addItemInCart } = require('../controller/cart-controller.js');
+const {
+    addPaymentGateway,
+    paymentResponse
+} = require('../controller/payment-controller.js');
+const {
+    getAmount,
+    setRewardRulesForAction,
+    getRewardRulesForAction,
+    getCoupenAmount,
+    setCoupenAmount,
+    transferReward,
+    decayReward,
+    deductCoupen
+} = require('../controller/flipgem-controller.js');
 
 const router = express.Router();
 
@@ -27,4 +45,4 @@ router.post('/getcoupen',getCoupenAmount);
 router.post('/transferreward',transferReward);
 router.post('/decayreward',decayReward);
 router.post('/deductcoupen',deductCoupen);
-export default router;
+module.exports= router;

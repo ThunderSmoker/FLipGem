@@ -1,8 +1,6 @@
 
-
-import Product from './model/productSchema.js';
-import { products } from './constants/product.js';
-
+const Product = require('./model/productSchema.js');
+const { products } = require('./constants/product.js');
 const DefaultData = async () => {
     try {
         await Product.deleteMany({});
@@ -14,5 +12,4 @@ const DefaultData = async () => {
         console.log('Error: ', error.message);
     }
 }
-
-export default DefaultData;
+module.exports =  DefaultData;

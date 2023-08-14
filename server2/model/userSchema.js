@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     firstname: {
@@ -41,9 +41,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: null
     },
+    walletMnemonic:{
+        type: String,
+        default: null
+    }
     
 });
 
 const user = mongoose.model('user', userSchema);
 
-export default user;
+module.exports= user;

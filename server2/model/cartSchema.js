@@ -27,4 +27,4 @@
 
 // let Cart = mongoose.model('Cart', cartSchema);
 
-// export default Cart;
+// module.exports= Cart;
