@@ -24,12 +24,12 @@ const CouponPage = () => {
 
       if (response.status === 200) {
         // Coupon successfully fetched
-        Swal.fire("Coupon Successfully Applied!", "", "success");
+        Swal.fire("Coupon Successfully Bought!", "", "success");
       } else {
         // Handle error response
         Swal.fire(
           "Coupon Error",
-          "There was an issue applying the coupon.",
+          "There was an issue buying the coupon.",
           "error"
         );
       }

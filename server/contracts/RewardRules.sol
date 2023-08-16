@@ -28,7 +28,7 @@ contract RewardRules is Ownable {
     }
 
     function setCoupenAmount(string memory coupen_id, uint256 reward) external onlyOwner {
-        actionRewards[coupen_id] = reward;
+        coupenAmount[coupen_id] = reward;
     }
 
     // Get reward for a specific action
@@ -37,7 +37,7 @@ contract RewardRules is Ownable {
     }
 
     function getCoupenAmountForAction(string memory coupen_id) external view returns (uint256) {
-        return actionRewards[coupen_id];
+        return coupenAmount[coupen_id];
     }
 
     // Deduct amount from owner and add it to given user's balance

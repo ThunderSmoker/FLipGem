@@ -511,7 +511,7 @@ const Dashboard = () => {
           </div>
         </div>
         <h2 class="text-2xl mb-4">Accounts</h2>
-        <div class="card flex flex-align-center flex-justify-center flex-column mb-4">
+        <div class="card flex flex-align-center flex-justify-center flex-column mb-4" >
           <img src="./gem.png" height={50} alt="" />
           <h2 class="text-2xl text-white text-bold mt-2 mb-2">{flipgem} FGM</h2>
           <p class="text-bold text-white flex flex-align-center">
@@ -531,8 +531,8 @@ const Dashboard = () => {
             $0.32 (2%)
           </p>
         </div>
-        <div class="flex flex-align-center flex-justify-between mb-8">
-          <button style={{cursor:'pointer',width:"277px"}} class="button bg-primary text-white flex flex-align-center flex-justify-center px-4 py-4">
+        <div class="flex flex-align-center flex-justify-between mb-8 ">
+          <button style={{cursor:'pointer',width:"277px"}} class="button bg-primary text-white flex flex-align-center flex-justify-center px-4 py-4" >
             <ShoppingBagRounded style={{fontSize:"1.5rem"}}/>
             <span style={{fontSize:"1.5rem"}}>Coupons</span>
           </button>
@@ -545,24 +545,24 @@ const Dashboard = () => {
           </button> */}
         </div>
         <h2 class="text-2xl mt-6 mb-4">Recent Transactions</h2>
-        <div class="transactions">
+        <div class="transactions" >
           {transactions.map((transaction) => (
             
             <div class="transaction flex flex-align-center flex-justify-between mb-4">
             
             <div class="flex flex-align-center flex-justify-between">
               <img src="./gem.png" height={45} alt="" className="mr-3" />
-              <div >
+              <div style={{fontSize:"1rem"}} >
               {transaction.to === account.walletAddress ? 
-            <p class="text-bold">FlipGem Rewarded</p>
-            :<p class="text-bold">FlipGem Deducted</p>}
+            <p class="text-bold">FlipGem <br /> Rewarded</p>
+            :<p class="text-bold">FlipGem <br/> Deducted</p>}
              
                 <small class="text-bold text-gray-500">{transaction.timestamp}</small>
               </div>
             </div>
             {transaction.to === account.walletAddress ? 
-            <p class="text-bold text-success">+{transaction.amount} FGM</p>
-            :<p class="text-bold" style={{color:"red"}}>-{transaction.amount} FGM</p>}
+            <p class="text-bold text-success">+{transaction.amount} <br /> FGM</p>
+            :<p class="text-bold" style={{color:"red"}}>-{transaction.amount} <br /> FGM</p>}
           </div>
             ))}
           {/* <div class="transaction flex flex-align-center flex-justify-between mb-4">
