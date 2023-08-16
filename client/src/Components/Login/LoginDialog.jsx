@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import { Dialog, DialogContent, TextField, Box, Button, Typography, styled } from '@mui/material';
-
+import { useDispatch } from 'react-redux';
 import * as AuthAPI from '../../service/api'
-
+import { login as reducLogin,signup as reduxSignup} from '../../redux/actions/authActions';
 const Component = styled(DialogContent)`
     height: 70vh;
     width: 90vh;
@@ -105,7 +105,7 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
     const [ signup, setSignup ] = useState(signupInitialValues);
     const [ error, showError] = useState(false);
     const [ account, toggleAccount ] = useState(accountInitialValues.login);
-
+    const dispatch = useDispatch();
     useEffect(() => {
         showError(false);
     }, [login])
@@ -119,9 +119,10 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
     }
 
     const loginUser =async () => {
+        let res=dispatch(reducLogin(login));
+        console.log(res);
         let response=await AuthAPI.authenticateLogin(login);
         console.log(response);
-         
         if(!response) 
             showError(true);
         else {
