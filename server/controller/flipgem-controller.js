@@ -111,20 +111,26 @@ const transferReward = async (req, res) => {
 }
 const deductCoupen= async (req, res) => {
     const { userId,coupen_id } = req.body;
-    const myuser = await user.findById(userId);
-
-    if (!myuser) {
-        return res.status(400).json({ msg: "User not found" });
+    try {
+        const myuser = await user.findById(userId);
+        if (!myuser) {
+            return res.status(400).json({ msg: "User not found" });
+        }
+        
+        if (!myuser.walletAddress) {
+            return res.status(400).json({ msg: "Wallet address not found for the user" });
+        }
+        
+        const rewardRules = await RewardRulesConnector();
+        const tx = await rewardRules.deductCoupon(myuser.walletAddress,coupen_id);
+        console.log(tx);
+        await tx.wait(); 
+        return res.status(200).json({ msg: "Reward transfered successfully" });
+    } catch (error) {
+        console.log("server error");
+        return res.status(500).json("server eror")
     }
-
-    if (!myuser.walletAddress) {
-        return res.status(400).json({ msg: "Wallet address not found for the user" });
-    }
-
-    const rewardRules = await RewardRulesConnector();
-    const tx = await rewardRules.deductCoupon(myuser.walletAddress,coupen_id);
-    await tx.wait(); 
-    res.status(200).json({ msg: "Reward transfered successfully" });
+ 
 }
 
 const decayReward= async (req, res) => {
@@ -171,7 +177,8 @@ const getUserTransactions=async(req,res)=>{
             }
             data.push(obj)
         }
-        return res.status(200).json({transactions:data});
+        const newdata=data.reverse();
+        return res.status(200).json({transactions:newdata});
     } catch (err) {
         console.log(err);
         return res.status(500).json({ msg: "Internal server error" });

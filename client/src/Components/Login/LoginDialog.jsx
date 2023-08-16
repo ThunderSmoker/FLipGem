@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Dialog, DialogContent, TextField, Box, Button, Typography, styled } from '@mui/material';
 
-import { authenticateLogin, authenticateSignup } from '../../service/api';
+import * as AuthAPI from '../../service/api'
 
 const Component = styled(DialogContent)`
     height: 70vh;
@@ -118,19 +118,21 @@ const LoginDialog = ({ open, setOpen, setAccount }) => {
         setSignup({ ...signup, [e.target.name]: e.target.value });
     }
 
-    const loginUser = async() => {
-        let response = await authenticateLogin(login);
+    const loginUser =async () => {
+        let response=await AuthAPI.authenticateLogin(login);
+        console.log(response);
+         
         if(!response) 
             showError(true);
         else {
             showError(false);
             handleClose();
-            setAccount(login.username);
+            setAccount(response.data.user);
         }
     }
 
     const signupUser = async() => {
-        let response = await authenticateSignup(signup);
+        let response = await AuthAPI.authenticateSignup(signup);
         if(!response) return;
         handleClose();
         setAccount(signup.username);

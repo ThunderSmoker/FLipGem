@@ -9,6 +9,7 @@ import TemplateProvider from './templates/TemplateProvider';
 import ContextProvider from './context/ContextProvider';
 import Cart from './Components/Cart/Cart';
 import Flipgem from './Components/Flipgem';
+import Coupon from './Components/Coupon';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path= '/cart' element={<Cart />} />
               <Route path= '/product/:id' element={<DetailView />} />
               <Route path= '/flipgem' element={<Flipgem />} />
+              <Route path= '/coupons' element={<Coupon />} />
             </Routes>
           </Box>
         </BrowserRouter>

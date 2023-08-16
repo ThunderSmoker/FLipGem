@@ -33,7 +33,7 @@ const Profile = ({ account, setAccount }) => {
       <Box onClick={handleClick}>
         <Typography style={{ marginTop: 2 }}>
           <div style={{ display: "flex" }}>
-            {account} <ArrowDropDown />
+            {account.username} <ArrowDropDown />
           </div>
         </Typography>
       </Box>

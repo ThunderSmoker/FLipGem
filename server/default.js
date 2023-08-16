@@ -1,6 +1,6 @@
 
 const Product = require('./model/productSchema.js');
-const { products } = require('./constants/product.js');
+const  products  = require('./constants/product.js');
 const DefaultData = async () => {
     try {
         await Product.deleteMany({});
