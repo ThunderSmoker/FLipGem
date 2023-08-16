@@ -8,6 +8,7 @@ import axios from "axios";
 import { useState } from "react";
 import { CopyAll, CopyAllOutlined, ShoppingBagOutlined, ShoppingBagRounded, ShoppingCartOutlined } from "@mui/icons-material";
 import { Button, IconButton, Tooltip } from "@mui/material";
+import { Link } from "react-router-dom";
 // import chart from ''
 // import pref from './DashboardHtml/index.html';
 const Dashboard = () => {
@@ -534,10 +535,12 @@ const Dashboard = () => {
           </p>
         </div>
         <div class="flex flex-align-center flex-justify-between mb-8 ">
+          <Link to="/coupons" style={{textDecoration:'none'}}>
           <button style={{cursor:'pointer',width:"277px"}} class="button bg-primary text-white flex flex-align-center flex-justify-center px-4 py-4" >
             <ShoppingBagRounded style={{fontSize:"1.5rem"}}/>
-            <span style={{fontSize:"1.5rem"}}>Coupons</span>
+            <span style={{fontSize:"1.5rem"}} >Coupons</span>
           </button>
+          </Link>
           {/* <button
             style={{ width: "8rem", cursor:'pointer' }}
             class="button bg-secondary text-white flex flex-align-center px-4 py-4"

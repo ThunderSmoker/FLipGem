@@ -7,8 +7,8 @@ import axios from "axios";
 const CouponPage = () => {
   const { account, setAccount } = React.useContext(LoginContext);
   const coupons = [
-    { id: 1, imageUrl: "coupon1.webp", price: "10 FGM", iconUrl: "./gem.png" },
-    { id: 2, imageUrl: "coupon2.webp", price: "20 FGM", iconUrl: "./gem.png" },
+    { id: 1, imageUrl: "https://rukminim2.flixcart.com/fk-p-www/100/100/promos/05/09/2022/b8777150-a49e-40f8-8d97-21a90470c7c8.png?q=50", price: "10 FGM", iconUrl: "./gem.png" },
+    { id: 2, imageUrl: "https://rukminim2.flixcart.com/fk-p-www/100/100/promos/13/08/2023/1357173a-1c84-4521-b241-93dc570469aa.png?q=50", price: "20 FGM", iconUrl: "./gem.png" },
     // ... Add more coupons
   ];
 

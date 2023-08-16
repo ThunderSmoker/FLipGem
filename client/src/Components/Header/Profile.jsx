@@ -2,7 +2,22 @@ import { useState } from "react";
 
 import { Link } from "react-router-dom";
 import { Typography, Menu, MenuItem, Box, styled } from "@mui/material";
-import { AccountBalanceWallet, AccountBalanceWalletOutlined, AddCircleOutline, AddCircleRounded, ArrowDropDown, BoltOutlined, Favorite, FavoriteOutlined, LocalMallOutlined, NotificationAddOutlined, PaymentOutlined, PowerSettingsNew } from "@mui/icons-material";
+import {
+  AccountBalanceWallet,
+  AccountBalanceWalletOutlined,
+  AddCircleOutline,
+  AddCircleRounded,
+  ArrowDropDown,
+  BoltOutlined,
+  Favorite,
+  FavoriteOutlined,
+  LocalMallOutlined,
+  NotificationAddOutlined,
+  PaymentOutlined,
+  PowerSettingsNew,
+  Rule,
+  RuleFolderOutlined,
+} from "@mui/icons-material";
 
 const Component = styled(Menu)`
   margin-top: 5px;
@@ -33,7 +48,8 @@ const Profile = ({ account, setAccount }) => {
       <Box onClick={handleClick}>
         <Typography style={{ marginTop: 2 }}>
           <div style={{ display: "flex" }}>
-            {account.username} <ArrowDropDown />
+            <span style={{ marginTop: "0.3rem" }}> {account.username}</span>{" "}
+            <ArrowDropDown />
           </div>
         </Typography>
       </Box>
@@ -46,7 +62,7 @@ const Profile = ({ account, setAccount }) => {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div
               style={{
-                display:'flex',
+                display: "flex",
                 color: "black",
                 borderBottom: "1px solid #DCD6D0",
                 padding: "0.5rem",
@@ -54,7 +70,7 @@ const Profile = ({ account, setAccount }) => {
                 alignItems: "center",
                 cursor: "pointer",
               }}
-              onClick={()=>logout()}
+              onClick={() => logout()}
             >
               <PowerSettingsNew fontSize="small" color="primary" />
               <Logout>Logout</Logout>
@@ -69,8 +85,15 @@ const Profile = ({ account, setAccount }) => {
                 cursor: "pointer",
               }}
             >
-            <BoltOutlined fontSize="small" color="primary"/>
-             <Logout><Link to={"/flipgem"}>FlipGem Zone </Link></Logout> 
+              <BoltOutlined fontSize="small" color="primary" />
+              <Logout>
+                <Link
+                  to={"/flipgem"}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  FlipGem Zone{" "}
+                </Link>
+              </Logout>
             </div>
             <div
               style={{
@@ -82,8 +105,8 @@ const Profile = ({ account, setAccount }) => {
                 cursor: "pointer",
               }}
             >
-            <AddCircleOutline fontSize="small" color="primary"/>
-             <Logout> Flipkart Plus Zone </Logout>
+              <AddCircleOutline fontSize="small" color="primary" />
+              <Logout> Flipkart Plus Zone </Logout>
             </div>
             <div
               style={{
@@ -95,8 +118,8 @@ const Profile = ({ account, setAccount }) => {
                 cursor: "pointer",
               }}
             >
-                <AccountBalanceWalletOutlined fontSize="small" color="primary" />
-            <Logout>  Orders </Logout>
+              <AccountBalanceWalletOutlined fontSize="small" color="primary" />
+              <Logout> Orders </Logout>
             </div>
             <div
               style={{
@@ -108,8 +131,8 @@ const Profile = ({ account, setAccount }) => {
                 cursor: "pointer",
               }}
             >
-                <FavoriteOutlined fontSize="small" color="primary" />
-             <Logout> Wishlist</Logout>
+              <FavoriteOutlined fontSize="small" color="primary" />
+              <Logout> Wishlist</Logout>
             </div>
             <div
               style={{
@@ -121,8 +144,13 @@ const Profile = ({ account, setAccount }) => {
                 cursor: "pointer",
               }}
             >
-                <PaymentOutlined fontSize="small" color="primary" />
-              <Logout>Coupons </Logout>
+              <PaymentOutlined fontSize="small" color="primary" />
+              <Link
+                to="/coupons"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <Logout>Coupons </Logout>
+              </Link>
             </div>
             <div
               style={{
@@ -134,7 +162,7 @@ const Profile = ({ account, setAccount }) => {
                 cursor: "pointer",
               }}
             >
-                <LocalMallOutlined fontSize="small" color="primary" />
+              <LocalMallOutlined fontSize="small" color="primary" />
               <Logout>Gift Cards</Logout>
             </div>
             <div
@@ -147,8 +175,15 @@ const Profile = ({ account, setAccount }) => {
                 cursor: "pointer",
               }}
             >
-                <NotificationAddOutlined fontSize="small" color="primary" />
-              <Logout>Notifications</Logout>
+              <RuleFolderOutlined fontSize="small" color="primary" />
+              <Link
+                to="/rulesandregulations"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <Logout>
+                  Loyalty Program <br /> Guidelines
+                </Logout>
+              </Link>
             </div>
           </div>
         </MenuItem>
