@@ -22,7 +22,9 @@ app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/', Routes);
-
+app.get('/hello',async(req,res)=>{
+    res.send("Hello World")
+})
 let paytmMerchantkey = process.env.PAYTM_MERCHANT_KEY;
 let paytmParams = {};
 paytmParams['MID'] = process.env.PAYTM_MID,
