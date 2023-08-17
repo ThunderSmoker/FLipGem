@@ -40,12 +40,13 @@ const Profile = ({ account, setAccount }) => {
   };
 
   const logout = () => {
+    localStorage.clear();
     setAccount("");
   };
 
   return (
     <>
-      <Box onClick={handleClick}>
+      <Box onClick={handleClick} style={{cursor:"pointer"}}>
         <Typography style={{ marginTop: 2 }}>
           <div style={{ display: "flex" }}>
             <span style={{ marginTop: "0.3rem" }}> {account.username}</span>{" "}

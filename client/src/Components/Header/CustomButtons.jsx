@@ -79,10 +79,10 @@ const CustomButtons = () => {
           Login
         </LoginButton>
       )}
-      <Typography style={open?{ marginTop: 3, width:135 }:{ marginTop: 3, width:150 }} >
+      <Typography style={open?{ marginTop: 3, width:135,cursor:"pointer" }:{ marginTop: 3, width:150,cursor:"pointer" }} >
         Become a Seller
       </Typography>
-      <Typography style={{ marginTop: 3 }}>
+      <Typography style={{ marginTop: 3 ,cursor:"pointer"}}>
         <a onClick={() => setOpenDrop(!moreDrop)}>More</a>
       </Typography>
       {moreDrop && (

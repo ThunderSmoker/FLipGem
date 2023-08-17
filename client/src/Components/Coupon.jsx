@@ -7,8 +7,10 @@ import axios from "axios";
 const CouponPage = () => {
   const { account, setAccount } = React.useContext(LoginContext);
   const coupons = [
-    { id: 1, imageUrl: "https://rukminim2.flixcart.com/fk-p-www/100/100/promos/05/09/2022/b8777150-a49e-40f8-8d97-21a90470c7c8.png?q=50", price: "10 FGM", iconUrl: "./gem.png" },
-    { id: 2, imageUrl: "https://rukminim2.flixcart.com/fk-p-www/100/100/promos/13/08/2023/1357173a-1c84-4521-b241-93dc570469aa.png?q=50", price: "20 FGM", iconUrl: "./gem.png" },
+    { id: 1, imageUrl: "https://rukminim2.flixcart.com/fk-p-www/500/500/promos/05/09/2022/b8777150-a49e-40f8-8d97-21a90470c7c8.png?q=50", price: "10 FGM", iconUrl: "./gem.png" },
+    { id: 2, imageUrl: "https://rukminim2.flixcart.com/fk-p-www/500/500/promos/13/08/2023/1357173a-1c84-4521-b241-93dc570469aa.png?q=50", price: "20 FGM", iconUrl: "./gem.png" },
+    { id: 3, imageUrl: "https://rukminim2.flixcart.com/fk-p-www/500/500/promos/01/08/2023/a0669428-600c-4e64-aeac-2a2d0412fc42.png?q=50", price: "10 FGM", iconUrl: "./gem.png" },
+    { id: 4, imageUrl: "https://rukminim2.flixcart.com/fk-p-www/500/500/promos/25/07/2023/9f0a8b8e-1182-490b-b34f-4566a7e9777b.png?q=50", price: "30 FGM", iconUrl: "./gem.png" },
     // ... Add more coupons
   ];
 
