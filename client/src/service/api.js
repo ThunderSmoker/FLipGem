@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8000';
+const url =process.env.REACT_APP_BASE_URL;
 
 export const authenticateLogin = async (user) => {
     try {

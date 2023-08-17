@@ -11,8 +11,10 @@ import Cart from './Components/Cart/Cart';
 import Flipgem from './Components/Flipgem';
 import Coupon from './Components/Coupon';
 import RulesPage from './Components/RulesAndRegulations/RulesAndRegulations';
+import { useEffect } from 'react';
 
 function App() {
+
   return (
     <TemplateProvider>
       <ContextProvider>

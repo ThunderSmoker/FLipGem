@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 export const LoginContext = createContext(null);
 
 const ContextProvider = ({children}) => {
-    const accdetails = useSelector(state => state.auth.user.user);
+    const accdetails = useSelector(state => state?.auth?.user?.user);
     const [ account, setAccount ] = useState(accdetails);
     
     return (

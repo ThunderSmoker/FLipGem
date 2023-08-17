@@ -19,10 +19,11 @@ const Component = styled(Box)`
 const Home = () => {
     const getProducts = useSelector(state => state.getProducts);
     const { products, error } = getProducts;
-
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
+        
         dispatch(listProducts())
     }, [dispatch])
 

@@ -14,7 +14,7 @@ const CouponPage = () => {
 
   const handleCouponClick = async (couponId) => {
     try {
-      const response = await fetch("http://localhost:8000/deductcoupen", {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/deductcoupen`, {
         method: "POST",
         body: JSON.stringify({ coupen_id: couponId, userId: account._id }),
         headers: {

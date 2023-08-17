@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [transactions,setTransactions]=useState([]);
   const getFlipgem=async()=>{
     // console.log(account._id)
-    const res=await axios.post("http://localhost:8000/getflipgem",{
+    const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/getflipgem`,{
       userId:account._id
     });
     console.log(res.data);
@@ -26,7 +26,7 @@ const Dashboard = () => {
   }
   const getTransactions=async()=>{
     // console.log(account._id)
-    const res=await axios.post("http://localhost:8000/getusertransactions",{
+    const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/getusertransactions`,{
       userId:account._id
     });
     console.log(res.data);
