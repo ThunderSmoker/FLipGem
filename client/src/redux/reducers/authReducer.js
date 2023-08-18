@@ -28,8 +28,14 @@ const initialState = {
         };
   
       case 'SIGNUP_SUCCESS':
-        // Handle signup success if needed
-        return state;
+        return {
+          ...state,
+          user: action.payload.user,
+          isAuthenticated: true,
+          loading: false,
+          error: null,
+        };
+       
   
       case 'PRODUCT_SUCCESS':
         // Handle product success if needed

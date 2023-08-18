@@ -11,7 +11,7 @@ exports.userLogIn = async (request, response) => {
         }
 
     } catch (error) {
-        response.json('Error: ', error.message);        
+        return response.json('Error: ', error.message);        
     }
 }
 
@@ -28,10 +28,10 @@ exports.userSignUp = async (request, response) => {
         user.walletMnemonic= wallet.mnemonic.phrase;
         const newUser = new User(user);
         await newUser.save();
-        response.status(200).json({ mesage: user });
+        return response.status(200).json({user:user,msg:"success"});
         
     } catch (error) {
-        response.status(500).json({ message: error.message });
+        return response.status(500).json({ message: error.message });
     }
 }
 

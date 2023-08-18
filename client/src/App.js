@@ -12,6 +12,7 @@ import Flipgem from './Components/Flipgem';
 import Coupon from './Components/Coupon';
 import RulesPage from './Components/RulesAndRegulations/RulesAndRegulations';
 import { useEffect } from 'react';
+import TokenIssuePortalForm from './Components/TokenIssuer';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
               <Route path= '/flipgem' element={<Flipgem />} />
               <Route path= '/coupons' element={<Coupon />} />
               <Route path= '/rulesandregulations' element={<RulesPage />} />
+              <Route path= '/issueToken' element={<TokenIssuePortalForm />} />
             </Routes>
           </Box>
         </BrowserRouter>

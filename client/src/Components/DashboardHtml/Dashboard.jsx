@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 // import chart from ''
 // import pref from './DashboardHtml/index.html';
 const Dashboard = () => {
- 
+  const [isloading,setisLoading]=useState(true);
   const { account, setAccount } = React.useContext(LoginContext);
-  const [flipgem,setFlipgem]=useState();
+  const [flipgem,setFlipgem]=useState(0);
   const [transactions,setTransactions]=useState([]);
   const getFlipgem=async()=>{
     // console.log(account._id)
@@ -26,11 +26,13 @@ const Dashboard = () => {
   }
   const getTransactions=async()=>{
     // console.log(account._id)
+    setisLoading(true)
     const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/getusertransactions`,{
       userId:account._id
     });
     console.log(res.data);
     setTransactions(res.data.transactions);
+    setisLoading(false)
   }
   const handleCopy = () => {
     // Create a temporary input element
@@ -47,6 +49,7 @@ const Dashboard = () => {
     Swal.fire('Copied!', 'Wallet address has been copied to the clipboard', 'success');
   };
   React.useEffect(() => {
+    
     getFlipgem();
     getTransactions();
     const ctx = document.getElementById("myChart").getContext("2d");
@@ -168,12 +171,12 @@ const Dashboard = () => {
       }
     };
 
-    navHamburger.addEventListener("click", handleNavHamburgerClick);
-    window.addEventListener("resize", handleResize);
+    // navHamburger.addEventListener("click", handleNavHamburgerClick);
+    // window.addEventListener("resize", handleResize);
 
     return () => {
-      navHamburger.removeEventListener("click", handleNavHamburgerClick);
-      window.removeEventListener("resize", handleResize);
+      // navHamburger.removeEventListener("click", handleNavHamburgerClick);
+      // window.removeEventListener("resize", handleResize);
       myChart.destroy();
     };
   }, []);
@@ -181,33 +184,7 @@ const Dashboard = () => {
   return (
     // <iframe src={pref}></iframe>
     <div class="flex">
-      <nav class="nav__mobile flex-column flex-align-center">
-        <div class="nav__hamburger flex flex-align-center flex-column flex-justify-center mb-6">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </div>
-        <svg
-          width="45"
-          height="145"
-          viewBox="0 0 45 100"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M8.71058 88.7499C7.2624 91.2582 6.5 94.1035 6.5 96.9999C6.5 99.8962 7.2624 102.742 8.71058 105.25C10.1588 107.758 12.2417 109.841 14.75 111.289C17.2583 112.737 20.1036 113.5 23 113.5C25.8964 113.5 28.7417 112.737 31.25 111.289C33.7583 109.841 35.8412 107.758 37.2894 105.25C38.7376 102.742 39.5 99.8962 39.5 96.9999C39.5 94.1035 38.7376 91.2582 37.2894 88.7499L32.6806 91.4108C33.6617 93.1101 34.1782 95.0377 34.1782 96.9999C34.1782 98.9621 33.6617 100.89 32.6806 102.589C31.6995 104.288 30.2884 105.699 28.5891 106.681C26.8898 107.662 24.9622 108.178 23 108.178C21.0378 108.178 19.1102 107.662 17.4109 106.681C15.7116 105.699 14.3005 104.288 13.3194 102.589C12.3383 100.89 11.8218 98.9621 11.8218 96.9999C11.8218 95.0377 12.3383 93.1101 13.3194 91.4108L8.71058 88.7499Z"
-            fill="#4062FF"
-          />
-          <path
-            d="M29.2046 103.083C27.5246 104.763 25.4766 105.603 23.0606 105.603C20.6446 105.603 18.5966 104.763 16.9166 103.083C15.2366 101.387 14.3966 99.1553 14.3966 96.3873C14.3966 95.1553 14.5726 94.0833 14.9246 93.1713C15.2766 92.2433 15.8046 91.3073 16.5086 90.3633L19.3406 91.8993C18.2526 93.3233 17.7086 94.8113 17.7086 96.3633C17.7086 98.0273 18.2206 99.3553 19.2446 100.347C20.2526 101.339 21.5246 101.835 23.0606 101.835C24.5966 101.835 25.8766 101.339 26.9006 100.347C27.9086 99.3553 28.4126 98.0273 28.4126 96.3633C28.4126 94.8113 27.8686 93.3233 26.7806 91.8993L29.6126 90.3633C30.3166 91.3073 30.8446 92.2433 31.1966 93.1713C31.5486 94.0833 31.7246 95.1553 31.7246 96.3873C31.7246 99.1553 30.8846 101.387 29.2046 103.083ZM19.1486 84.8592H21.8366C20.8446 84.6832 20.1086 84.2432 19.6286 83.5392C19.1326 82.8352 18.8846 82.1472 18.8846 81.4752C18.8846 81.2032 18.9166 80.8992 18.9806 80.5632H22.5086C22.3966 81.0272 22.3406 81.5312 22.3406 82.0752C22.3406 82.8112 22.5566 83.4432 22.9886 83.9712C23.4046 84.4992 23.9966 84.7632 24.7646 84.7632H31.4606V88.3392H19.1486V84.8592ZM26.8526 73.0184L19.1486 70.0904V66.1544L37.0766 74.1224V77.7224L30.4286 74.9144L19.1486 79.9784V75.9464L26.8526 73.0184ZM25.3406 54.569C24.3166 54.569 23.4686 54.857 22.7966 55.433C22.1246 55.993 21.7886 56.761 21.7886 57.737C21.7886 58.665 22.0846 59.433 22.6766 60.041C23.2686 60.649 24.0926 60.953 25.1486 60.953C26.2846 60.953 27.1806 60.649 27.8366 60.041C28.4926 59.433 28.8206 58.633 28.8206 57.641C28.8206 56.697 28.4926 55.953 27.8366 55.409C27.1646 54.849 26.3326 54.569 25.3406 54.569ZM37.0766 60.857V64.433H19.1486L19.1486 60.857H20.9486C19.5726 59.897 18.8846 58.609 18.8846 56.993C18.8846 55.169 19.5006 53.713 20.7326 52.625C21.9646 51.537 23.5086 50.993 25.3646 50.993C27.1726 50.993 28.6846 51.521 29.9006 52.577C31.1166 53.617 31.7246 55.065 31.7246 56.921C31.7246 57.721 31.5486 58.473 31.1966 59.177C30.8446 59.865 30.3726 60.425 29.7806 60.857H37.0766ZM16.1246 44.4076H19.1486V40.9996H21.9566V44.4076H27.7166C28.4366 44.4076 28.7966 44.1036 28.7966 43.4956C28.7966 42.8716 28.4126 42.5596 27.6446 42.5596C27.2446 42.5596 26.8926 42.6156 26.5886 42.7276V39.8956C26.9886 39.7036 27.4766 39.6076 28.0526 39.6076C29.0606 39.6076 29.9246 39.9516 30.6446 40.6396C31.3646 41.3276 31.7246 42.3516 31.7246 43.7116C31.7246 46.5596 30.2766 47.9836 27.3806 47.9836H21.9566V49.8316H19.1486V47.7196L16.1246 47.1676V44.4076ZM29.9246 36.6074C28.7086 37.9354 27.1646 38.5994 25.2926 38.5994C23.4206 38.5994 21.8846 37.9354 20.6846 36.6074C19.4846 35.2634 18.8846 33.6714 18.8846 31.8314C18.8846 29.9914 19.4926 28.4074 20.7086 27.0794C21.9086 25.7354 23.4366 25.0634 25.2926 25.0634C27.1646 25.0634 28.7086 25.7354 29.9246 27.0794C31.1246 28.4074 31.7246 29.9914 31.7246 31.8314C31.7246 33.6714 31.1246 35.2634 29.9246 36.6074ZM25.2926 35.1194C26.2526 35.1194 27.0526 34.7994 27.6926 34.1594C28.3326 33.5034 28.6526 32.7274 28.6526 31.8314C28.6526 30.9194 28.3326 30.1434 27.6926 29.5034C27.0366 28.8634 26.2366 28.5434 25.2926 28.5434C24.3486 28.5434 23.5566 28.8634 22.9166 29.5034C22.2766 30.1434 21.9566 30.9194 21.9566 31.8314C21.9566 32.7274 22.2766 33.5034 22.9166 34.1594C23.5566 34.7994 24.3486 35.1194 25.2926 35.1194Z"
-            fill="black"
-          />
-          <path
-            d="M19.2446 10.0891C19.9966 10.0891 20.6926 10.3291 21.3326 10.8091C21.9566 11.2731 22.4286 11.9451 22.7486 12.8251C22.9406 11.8331 23.4366 11.0011 24.2366 10.3291C25.0206 9.65712 25.8526 9.32112 26.7326 9.32112C28.1566 9.32112 29.3006 9.87312 30.1646 10.9771C31.0286 12.0651 31.4606 13.4971 31.4606 15.2731L31.4606 22.3051H14.6366L14.6606 15.9931C14.6606 14.2651 15.0766 12.8491 15.9086 11.7451C16.7246 10.6411 17.8366 10.0891 19.2446 10.0891ZM24.3086 16.6411V18.5851H28.5086V15.2731C28.5086 14.6331 28.3406 14.1131 28.0046 13.7131C27.6686 13.2971 27.2206 13.0891 26.6606 13.0891C25.9566 13.0891 25.3886 13.3371 24.9566 13.8331C24.5246 14.3131 24.3086 15.2491 24.3086 16.6411ZM21.7166 18.5851V17.0491C21.7166 14.9211 20.9486 13.8571 19.4126 13.8571C18.8366 13.8571 18.3966 14.0651 18.0926 14.4811C17.7726 14.8811 17.6126 15.3851 17.6126 15.9931V18.5851H21.7166ZM19.1486 3.39049H21.8366C20.8446 3.21449 20.1086 2.77449 19.6286 2.07049C19.1326 1.36649 18.8846 0.678493 18.8846 0.00649357C18.8846 -0.265506 18.9166 -0.569506 18.9806 -0.905506H22.5086C22.3966 -0.441506 22.3406 0.0624936 22.3406 0.606494C22.3406 1.34249 22.5566 1.97449 22.9886 2.50249C23.4046 3.03049 23.9966 3.29449 24.7646 3.29449H31.4606V6.87049H19.1486V3.39049ZM29.9246 -3.84569C28.7086 -2.51769 27.1646 -1.85369 25.2926 -1.85369C23.4206 -1.85369 21.8846 -2.51769 20.6846 -3.84569C19.4846 -5.18969 18.8846 -6.78169 18.8846 -8.62169C18.8846 -10.4617 19.4926 -12.0457 20.7086 -13.3737C21.9086 -14.7177 23.4366 -15.3897 25.2926 -15.3897C27.1646 -15.3897 28.7086 -14.7177 29.9246 -13.3737C31.1246 -12.0457 31.7246 -10.4617 31.7246 -8.62169C31.7246 -6.78169 31.1246 -5.18969 29.9246 -3.84569ZM25.2926 -5.33369C26.2526 -5.33369 27.0526 -5.65369 27.6926 -6.29369C28.3326 -6.94969 28.6526 -7.72569 28.6526 -8.62169C28.6526 -9.53369 28.3326 -10.3097 27.6926 -10.9497C27.0366 -11.5897 26.2366 -11.9097 25.2926 -11.9097C24.3486 -11.9097 23.5566 -11.5897 22.9166 -10.9497C22.2766 -10.3097 21.9566 -9.53369 21.9566 -8.62169C21.9566 -7.72569 22.2766 -6.94969 22.9166 -6.29369C23.5566 -5.65369 24.3486 -5.33369 25.2926 -5.33369Z"
-            fill="#4062FF"
-          />
-        </svg>
-      </nav>
+   
       {/* <nav class="nav flex flex-column">
         <ul class="nav__menus flex flex-column mb-14">
           <svg
@@ -549,8 +526,11 @@ const Dashboard = () => {
             <span>Store</span>
           </button> */}
         </div>
-        <h2 class="text-2xl mt-6 mb-4">Recent Transactions</h2>
+         {isloading?<div className="text-2xl mt-6 mb-4 text-bold" style={{color:"#2874f0"}}>Fetching Transactions</div>:
+         (transactions.length!==0?
+        <h2 class="text-2xl mt-6 mb-4">Recent Transactions</h2>:(<div> <h2 class="text-2xl mt-6 mb-4">Recent Transactions</h2><p className="text-bold" style={{color:'#ADADC9', marginLeft:'3rem'}}>No Transactions Yet</p></div>))}
         <div class="transactions" >
+         
           {transactions.map((transaction) => (
             
             <div class="transaction flex flex-align-center flex-justify-between mb-4">
@@ -570,144 +550,7 @@ const Dashboard = () => {
             :<p class="text-bold" style={{color:"red"}}>-{transaction.amount} <br /> FGM</p>}
           </div>
             ))}
-          {/* <div class="transaction flex flex-align-center flex-justify-between mb-4">
-          <div class="flex flex-align-center flex-justify-between">
-          <svg
-          width="48"
-          height="48"
-          viewBox="20 20 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          class="mr-2"
-          >
-          <g filter="url(#filter0_d_117_77)">
-          <rect
-          x="20"
-          y="20"
-          width="48"
-          height="48"
-          rx="16"
-          fill="#636890"
-          />
-          </g>
-          <path
-          d="M52.8406 43.5407L44.5906 33.0407C44.5205 32.9511 44.4308 32.8786 44.3285 32.8287C44.2262 32.7788 44.1138 32.7529 44 32.7529C43.8862 32.7529 43.7738 32.7788 43.6715 32.8287C43.5692 32.8786 43.4795 32.9511 43.4094 33.0407L35.1594 43.5407C35.0544 43.6708 34.9971 43.8329 34.9971 44.0001C34.9971 44.1672 35.0544 44.3294 35.1594 44.4594L43.4094 54.9594C43.4795 55.0491 43.5692 55.1216 43.6715 55.1714C43.7738 55.2213 43.8862 55.2472 44 55.2472C44.1138 55.2472 44.2262 55.2213 44.3285 55.1714C44.4308 55.1216 44.5205 55.0491 44.5906 54.9594L52.8406 44.4594C52.9456 44.3294 53.0029 44.1672 53.0029 44.0001C53.0029 43.8329 52.9456 43.6708 52.8406 43.5407ZM44.75 35.6657L51.0687 43.7094L44.75 46.5876V35.6657ZM43.25 46.5876L36.9312 43.7094L43.25 35.6657V46.5876ZM43.25 48.2376V52.3344L38.2437 45.9594L43.25 48.2376ZM44.75 48.2376L49.7562 45.9594L44.75 52.3344V48.2376Z"
-          fill="white"
-          />
-          <defs>
-          <filter
-          id="filter0_d_117_77"
-          x="0"
-          y="0"
-          width="88"
-          height="88"
-          filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
-          >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-          <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
-          />
-          <feOffset />
-          <feGaussianBlur stdDeviation="10" />
-          <feComposite in2="hardAlpha" operator="out" />
-          <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0.5586 0 0 0 0 0.560629 0 0 0 0 0.57 0 0 0 0.04 0"
-          />
-          <feBlend
-          mode="normal"
-                      in2="BackgroundImageFix"
-                      result="effect1_dropShadow_117_77"
-                    />
-                    <feBlend
-                    mode="normal"
-                    in="SourceGraphic"
-                    in2="effect1_dropShadow_117_77"
-                    result="shape"
-                    />
-                    </filter>
-                    </defs>
-                    </svg>
-                    <div>
-                    <p class="text-bold">Ethereum Sell</p>
-                    <small class="text-bold text-gray-500">2 days ago</small>
-                    </div>
-                    </div>
-                    <p class="text-bold text-error">+3.05 ETH</p>
-                    </div>
-                    <div class="transaction flex flex-align-center flex-justify-between mb-4">
-                    <div class="flex flex-align-center flex-justify-between">
-                    <svg
-                    width="48"
-                    height="48"
-                    viewBox="20 20 48 48"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="mr-2"
-                    >
-                    <g filter="url(#filter0_d_117_77)">
-                    <rect
-                    x="20"
-                    y="20"
-                    width="48"
-                    height="48"
-                    rx="16"
-                    fill="#636890"
-                    />
-                    </g>
-                    <path
-                    d="M52.8406 43.5407L44.5906 33.0407C44.5205 32.9511 44.4308 32.8786 44.3285 32.8287C44.2262 32.7788 44.1138 32.7529 44 32.7529C43.8862 32.7529 43.7738 32.7788 43.6715 32.8287C43.5692 32.8786 43.4795 32.9511 43.4094 33.0407L35.1594 43.5407C35.0544 43.6708 34.9971 43.8329 34.9971 44.0001C34.9971 44.1672 35.0544 44.3294 35.1594 44.4594L43.4094 54.9594C43.4795 55.0491 43.5692 55.1216 43.6715 55.1714C43.7738 55.2213 43.8862 55.2472 44 55.2472C44.1138 55.2472 44.2262 55.2213 44.3285 55.1714C44.4308 55.1216 44.5205 55.0491 44.5906 54.9594L52.8406 44.4594C52.9456 44.3294 53.0029 44.1672 53.0029 44.0001C53.0029 43.8329 52.9456 43.6708 52.8406 43.5407ZM44.75 35.6657L51.0687 43.7094L44.75 46.5876V35.6657ZM43.25 46.5876L36.9312 43.7094L43.25 35.6657V46.5876ZM43.25 48.2376V52.3344L38.2437 45.9594L43.25 48.2376ZM44.75 48.2376L49.7562 45.9594L44.75 52.3344V48.2376Z"
-                  fill="white"
-                />
-                <defs>
-                  <filter
-                  id="filter0_d_117_77"
-                  x="0"
-                  y="0"
-                  width="88"
-                  height="88"
-                  filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB"
-                  >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                    <feColorMatrix
-                    in="SourceAlpha"
-                    type="matrix"
-                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                    result="hardAlpha"
-                    />
-                    <feOffset />
-                    <feGaussianBlur stdDeviation="10" />
-                    <feComposite in2="hardAlpha" operator="out" />
-                    <feColorMatrix
-                      type="matrix"
-                      values="0 0 0 0 0.5586 0 0 0 0 0.560629 0 0 0 0 0.57 0 0 0 0.04 0"
-                    />
-                    <feBlend
-                      mode="normal"
-                      in2="BackgroundImageFix"
-                      result="effect1_dropShadow_117_77"
-                    />
-                    <feBlend
-                      mode="normal"
-                      in="SourceGraphic"
-                      in2="effect1_dropShadow_117_77"
-                      result="shape"
-                    />
-                  </filter>
-                </defs>
-              </svg>
-              <div>
-                <p class="text-bold">Ethereum Buy</p>
-                <small class="text-bold text-gray-500">3 days ago</small>
-              </div>
-            </div>
-            <p class="text-bold text-success">+1.05 ETH</p>
-          </div> */}
+         
         </div>
       </section>
     </div>

@@ -8,6 +8,7 @@ import { LoginContext } from "../../context/ContextProvider";
 import { useSelector } from "react-redux";
 import { NotificationAdd } from "@mui/icons-material";
 import { Download } from "@mui/icons-material";
+import { Token } from "@mui/icons-material";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import HelpIcon from '@mui/icons-material/Help';
 
@@ -158,6 +159,22 @@ const CustomButtons = () => {
               <Download style={{ color: "#2874f0", fontSize: "20px" }} />
             </div>{" "}
             <div> Download App</div>
+          </div>
+          <div
+            style={{
+              color: "black",
+              backgroundColor: "white",
+              borderBottom: "1px solid #DCD6D0",
+              padding: "0.5rem",
+              display:'flex',
+              alignItems:'center',
+              cursor:'pointer'
+            }}
+          >
+            <div style={{paddingRight:'0.5rem', paddingTop:'0.2rem'}} >
+              <Token style={{ color: "#2874f0", fontSize: "20px" }} />
+            </div>{" "}
+            <Link to='./issuetoken' style={{textDecoration:'none'}}><div > Issue Token</div></Link>
           </div>
         </div>
       )}
