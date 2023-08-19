@@ -148,7 +148,7 @@ h1 {
 }
 
 .nav__menu.active {
-  color: white;
+  color: "white";
   background-color: #4062ff;
   border-radius: 16px;
 }

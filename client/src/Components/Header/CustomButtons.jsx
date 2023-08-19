@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 
 import { Box, Typography, Badge, Button, styled } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
+import { Info, ShoppingCart } from "@mui/icons-material";
 
 import { Link } from "react-router-dom";
 import { LoginContext } from "../../context/ContextProvider";
@@ -175,6 +175,22 @@ const CustomButtons = () => {
               <Token style={{ color: "#2874f0", fontSize: "20px" }} />
             </div>{" "}
             <Link to='./issuetoken' style={{textDecoration:'none'}}><div > Issue Token</div></Link>
+          </div>
+          <div
+            style={{
+              color: "black",
+              backgroundColor: "white",
+              borderBottom: "1px solid #DCD6D0",
+              padding: "0.5rem",
+              display:'flex',
+              alignItems:'center',
+              cursor:'pointer'
+            }}
+          >
+            <div style={{paddingRight:'0.5rem', paddingTop:'0.2rem'}} >
+              <Info style={{ color: "#2874f0", fontSize: "20px" }} />
+            </div>{" "}
+            <Link to='./about' style={{textDecoration:'none'}}><div > About Us</div></Link>
           </div>
         </div>
       )}

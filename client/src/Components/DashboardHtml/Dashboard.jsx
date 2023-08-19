@@ -10,12 +10,14 @@ import { CopyAll, CopyAllOutlined, ShoppingBagOutlined, ShoppingBagRounded, Shop
 import { Button, IconButton, Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
 // import chart from ''
+
 // import pref from './DashboardHtml/index.html';
 const Dashboard = () => {
   const [isloading,setisLoading]=useState(true);
   const { account, setAccount } = React.useContext(LoginContext);
   const [flipgem,setFlipgem]=useState(0);
   const [transactions,setTransactions]=useState([]);
+  const [graphdata,setGraphdata]=useState([]);
   const getFlipgem=async()=>{
     // console.log(account._id)
     const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/getflipgem`,{
@@ -32,6 +34,18 @@ const Dashboard = () => {
     });
     console.log(res.data);
     setTransactions(res.data.transactions);
+    const balanceChanges = [];
+    let currentBalance = 0;
+
+    for (const transaction of transactions) {
+     // Assuming positive value for income, negative for expenses
+     {transaction.to === account.walletAddress ? 
+      ( currentBalance += transaction.amount) :( currentBalance -= transaction.amount)}
+      balanceChanges.push(currentBalance);
+     
+    }
+
+    setGraphdata(balanceChanges);
     setisLoading(false)
   }
   const handleCopy = () => {
@@ -93,9 +107,7 @@ const Dashboard = () => {
             fill: true,
             backgroundColor: gradientFill,
             borderWidth: 3,
-            data: [
-              400, 410, 310, 460, 460, 200, 260, 261, 450, 260, 270, 260, 360,
-            ],
+            data: graphdata,
           },
         ],
       },
@@ -124,10 +136,10 @@ const Dashboard = () => {
             grid: {
               display: false,
             },
-            min: 100,
+            min: 0,
             max: 500,
             ticks: {
-              stepSize: 100,
+              stepSize: 10,
               font: {
                 family: "'Nexa', 'sans-serif'",
                 size: 14,

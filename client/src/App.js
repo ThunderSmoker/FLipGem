@@ -13,6 +13,7 @@ import Coupon from './Components/Coupon';
 import RulesPage from './Components/RulesAndRegulations/RulesAndRegulations';
 import { useEffect } from 'react';
 import TokenIssuePortalForm from './Components/TokenIssuer';
+import About from './Components/About';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
               <Route path= '/coupons' element={<Coupon />} />
               <Route path= '/rulesandregulations' element={<RulesPage />} />
               <Route path= '/issueToken' element={<TokenIssuePortalForm />} />
+              <Route path= '/about' element={<About />} />
             </Routes>
           </Box>
         </BrowserRouter>
