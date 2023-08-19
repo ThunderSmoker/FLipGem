@@ -19,7 +19,7 @@ const About = () => {
                     <p style={{color:'whitesmoke'}}>
  We are a dynamic team of dedicated individuals and our mission is to bring innovative ideas to life through technology. We're committed to embracing challenges, collaborating effectively, and delivering solutions that make a meaningful impact. With a focus on continuous learning and growth, we aim to carve a path towards excellence in the field of computer science and beyond.
                     </p>
-                    <a href="#" style={{backgroundColor:"white",padding:"5px",display:"flex", alignItems:'center', color:'black', fontSize:'14px', justifyContent:'center'}} title="About Us Button">
+                    <a href="https://github.com/NeutronHive/FLipGem" target='_blank' style={{backgroundColor:"white",padding:"5px",display:"flex", alignItems:'center', color:'black', fontSize:'14px', justifyContent:'center'}} title="About Us Button">
                         <div style={{fontWeight:'bolder', fontFamily:'monospace'}}>View GitHub</div>
                         <GitHub style={{fontSize:"1.5rem", marginLeft:'4px'}}/>
                     </a>
@@ -28,8 +28,8 @@ const About = () => {
             <div id="history-section">
                 <div className="history-image">
                     <img
-                        src="https://digitalupgrade.com/images/building_pic.jpg"
-                        width="951"
+                        src="./griidproj1.jpeg"
+                        width="808"
                         height="471"
                         alt="Building Pic"
                     />

@@ -1,4 +1,5 @@
 import React from "react";
+import ReactPlayer from "react-player";
 import "./RulesAndRegulations.css";
 
 const RulesPage = () => {
@@ -20,15 +21,24 @@ const RulesPage = () => {
         technology.
         <br />
         <br />
-
-        Embark on a revolutionary loyalty adventure with our blockchain-powered program, enhancing your rewards experience. Seamlessly embedded in your shopping realm, it guarantees transparency and security. Through purchases, referrals, and social engagement, earn tokens that are meticulously tracked on the blockchain. Our partners contribute to an enriched ecosystem, while governance thrives through smart contracts. Tokens possess a dynamic essence, motivating swift interaction before their gradual expiration. Dive into a realm where loyalty is elevated and rewards are fueled by innovation, inviting you to a journey of seamless earning and redemption. 
-        <br/>
-      <span style={{fontWeight:'bolder'}}>  We are excited to have you join us on this journey to a more
-        rewarding shopping experience.</span>
-
+        Embark on a revolutionary loyalty adventure with our blockchain-powered
+        program, enhancing your rewards experience. Seamlessly embedded in your
+        shopping realm, it guarantees transparency and security. Through
+        purchases, referrals, and social engagement, earn tokens that are
+        meticulously tracked on the blockchain. Our partners contribute to an
+        enriched ecosystem, while governance thrives through smart contracts.
+        Tokens possess a dynamic essence, motivating swift interaction before
+        their gradual expiration. Dive into a realm where loyalty is elevated
+        and rewards are fueled by innovation, inviting you to a journey of
+        seamless earning and redemption.
+        <br />
+        <span style={{ fontWeight: "bolder" }}>
+          {" "}
+          We are excited to have you join us on this journey to a more rewarding
+          shopping experience.
+        </span>
         <br />
         <br />
-
       </p>
 
       <ul>
@@ -52,9 +62,12 @@ const RulesPage = () => {
             <br />• The name of our token is FlipGem
             <br />• FlipGem carries it's symbol as FGM
             <br />• FlipGem is a fungible token
-            <br />• FlipGem can be earned by users through various actions - Shopping, social media interaction, etc..
-            <br />• FlipGem has real market value and can be earned from our partners as well
-            <br />• FlipGem can be spent to buy various coupons on FlipKart and from our partners
+            <br />• FlipGem can be earned by users through various actions -
+            Shopping, social media interaction, etc..
+            <br />• FlipGem has real market value and can be earned from our
+            partners as well
+            <br />• FlipGem can be spent to buy various coupons on FlipKart and
+            from our partners
             <br />• FlipGem has a decaying period of 30 days
           </p>
         </li>
@@ -67,11 +80,13 @@ const RulesPage = () => {
           <i></i>
           <h2>User Actions and Rewards</h2>
           <p>
-        Users can earn FlipGems by performing specific actions as outlined in our guidelines. Purchases from our E-commerce
-        platform, referrals of new users, and positive engagement on social media are some of the actions that can lead to token
-        rewards. Each action has a predefined number of tokens associated with it, and users can track their progress through
-        our user-friendly dashboard.
-      </p>
+            Users can earn FlipGems by performing specific actions as outlined
+            in our guidelines. Purchases from our E-commerce platform, referrals
+            of new users, and positive engagement on social media are some of
+            the actions that can lead to token rewards. Each action has a
+            predefined number of tokens associated with it, and users can track
+            their progress through our user-friendly dashboard.
+          </p>
         </li>
         <li>
           <input
@@ -82,12 +97,15 @@ const RulesPage = () => {
           <i></i>
           <h2>Partners and Sellers</h2>
           <p>
-        Transparency is at the core of our loyalty program. Our blockchain technology ensures that all transactions involving
-        fungible tokens are recorded on the blockchain, providing an immutable and transparent record of every transaction.
-        The governance of the treasury, including token issuance and management, is carried out through smart contracts
-        that follow predefined rules. Brands and users can easily verify the rules governing the issuance and usage of tokens,
-        ensuring fairness and trust.
-      </p>
+            Transparency is at the core of our loyalty program. Our blockchain
+            technology ensures that all transactions involving fungible tokens
+            are recorded on the blockchain, providing an immutable and
+            transparent record of every transaction. The governance of the
+            treasury, including token issuance and management, is carried out
+            through smart contracts that follow predefined rules. Brands and
+            users can easily verify the rules governing the issuance and usage
+            of tokens, ensuring fairness and trust.
+          </p>
         </li>
         <li>
           <input
@@ -98,13 +116,27 @@ const RulesPage = () => {
           <i></i>
           <h2>Decaying Nature of Tokens</h2>
           <p>
-        To encourage users to actively participate in the program, we have implemented a decaying nature for FlipGem.
-        After a period of 30 days, tokens in a user's wallet will gradually lose value, incentivizing users to redeem
-        their tokens for rewards before they expire. This mechanism ensures that tokens are put to good use and contribute
-        to a dynamic and engaging loyalty ecosystem.
-      </p>
+            To encourage users to actively participate in the program, we have
+            implemented a decaying nature for FlipGem. After a period of 30
+            days, tokens in a user's wallet will gradually lose value,
+            incentivizing users to redeem their tokens for rewards before they
+            expire. This mechanism ensures that tokens are put to good use and
+            contribute to a dynamic and engaging loyalty ecosystem.
+          </p>
         </li>
       </ul>
+      <div className="video-container">
+        <ReactPlayer
+          url="https://youtu.be/wbQdj5HC1Gs"
+          width="920px"   // Adjust the width as needed
+          height="380px" // Adjust the height as needed
+          playing={false}
+          loop
+        /> dzz 
+      </div>
+      <div style={{height:"4rem"}}>
+
+      </div>
     </div>
   );
 };

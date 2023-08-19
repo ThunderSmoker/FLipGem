@@ -180,3 +180,8 @@ ul li i:after {
   text-decoration: none;
   color: #2874f0;
 }
+.video-container {
+  margin-top: 4rem;
+  margin-left: 15%;
+  margin-bottom: 2rem;
+}
