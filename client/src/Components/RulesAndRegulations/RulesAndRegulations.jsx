@@ -132,7 +132,7 @@ const RulesPage = () => {
           height="380px" // Adjust the height as needed
           playing={false}
           loop
-        /> dzz 
+        />
       </div>
       <div style={{height:"4rem"}}>
 
