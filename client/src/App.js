@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Home, NotFound } from './Components/default';
 import { Box } from '@mui/material'
 
@@ -6,20 +6,22 @@ import { Box } from '@mui/material'
 import Header from './Components/Header/Header';
 import DetailView from './Components/ItemDetails/DetailView';
 import TemplateProvider from './templates/TemplateProvider';
-import ContextProvider from './context/ContextProvider';
+import ContextProvider, { LoginContext } from './context/ContextProvider';
 import Cart from './Components/Cart/Cart';
 import Flipgem from './Components/Flipgem';
 import Coupon from './Components/Coupon';
 import RulesPage from './Components/RulesAndRegulations/RulesAndRegulations';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import TokenIssuePortalForm from './Components/TokenIssuer';
 import About from './Components/About';
+import Dashboard from './Components/DashboardHtml/Dashboard';
 
 function App() {
-
+  const {account,setaccount} = useContext(LoginContext);
+  // const account = null
   return (
     <TemplateProvider>
-      <ContextProvider>
+     
         <BrowserRouter>
           <Header />
           <Box style={{marginTop: 54}}>
@@ -27,7 +29,7 @@ function App() {
               <Route path= '/' element={<Home />} />
               <Route path= '/cart' element={<Cart />} />
               <Route path= '/product/:id' element={<DetailView />} />
-              <Route path= '/flipgem' element={<Flipgem />} />
+              <Route path= '/flipgem' element={account?<Dashboard/>:<Navigate to="/"/>} />
               <Route path= '/coupons' element={<Coupon />} />
               <Route path= '/rulesandregulations' element={<RulesPage />} />
               <Route path= '/issueToken' element={<TokenIssuePortalForm />} />
@@ -35,7 +37,6 @@ function App() {
             </Routes>
           </Box>
         </BrowserRouter>
-      </ContextProvider>
     </TemplateProvider>
   );
 }

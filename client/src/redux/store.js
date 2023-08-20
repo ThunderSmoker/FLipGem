@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './reducers/authReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';

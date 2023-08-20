@@ -6,64 +6,94 @@ import Chart from "chart.js/auto";
 import axios from "axios";
 
 import { useState } from "react";
-import { CopyAll, CopyAllOutlined, ShoppingBagOutlined, ShoppingBagRounded, ShoppingCartOutlined } from "@mui/icons-material";
+import {
+  CopyAll,
+  CopyAllOutlined,
+  ShoppingBagOutlined,
+  ShoppingBagRounded,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
 import { Button, IconButton, Tooltip } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import chart from ''
 
 // import pref from './DashboardHtml/index.html';
 const Dashboard = () => {
-  const [isloading,setisLoading]=useState(true);
+  const [isloading, setisLoading] = useState(true);
   const { account, setAccount } = React.useContext(LoginContext);
-  const [flipgem,setFlipgem]=useState(0);
-  const [transactions,setTransactions]=useState([]);
-  const [graphdata,setGraphdata]=useState([]);
-  const getFlipgem=async()=>{
+  const [timestamparr, settimestamparr] = useState([]);
+  const [flipgem, setFlipgem] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+  const [graphdata, setGraphdata] = useState([0,100,90]);
+
+  const getFlipgem = async () => {
     // console.log(account._id)
-    const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/getflipgem`,{
-      userId:account._id
-    });
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/getflipgem`,
+      {
+        userId: account._id,
+      }
+    );
     console.log(res.data);
     setFlipgem(res.data.balance);
-  }
-  const getTransactions=async()=>{
+  };
+  const getTransactions = async () => {
     // console.log(account._id)
-    setisLoading(true)
-    const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/getusertransactions`,{
-      userId:account._id
-    });
+    setisLoading(true);
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/getusertransactions`,
+      {
+        userId: account._id,
+      }
+    );
     console.log(res.data);
-    setTransactions(res.data.transactions);
+    setTransactions(res.data.transactions.reverse());
     const balanceChanges = [];
-    let currentBalance = 0;
 
-    for (const transaction of transactions) {
-     // Assuming positive value for income, negative for expenses
-     {transaction.to === account.walletAddress ? 
-      ( currentBalance += transaction.amount) :( currentBalance -= transaction.amount)}
+    const arr = res.data.transactions.reverse();
+    let timeStamps = [];
+    for (const transaction of res.data.transactions) {
+      // Assuming positive value for income, negative for expenses
+      //  console.log(transaction.to ,account.walletAddress);
+      let currentBalance = 0;
+      {
+        transaction.to === account.walletAddress
+          ? (currentBalance += parseInt(transaction.amount))
+          : (currentBalance -= parseInt(transaction.amount));
+      }
+      timeStamps.push(transaction.timestamp.substring(0, 10));
       balanceChanges.push(currentBalance);
-     
     }
+    let prefix = [0];
+    for (let i = 0; i < balanceChanges.length; i++) {
+      prefix.push(prefix[i] + balanceChanges[i]);
+    }
+    console.log(timeStamps);
+    console.log(timeStamps);
 
-    setGraphdata(balanceChanges);
-    setisLoading(false)
-  }
+    // setGraphdata([...prefix]);
+    settimestamparr([...timeStamps]);
+    setisLoading(false);
+  };
   const handleCopy = () => {
     // Create a temporary input element
-    const tempInput = document.createElement('input');
+    const tempInput = document.createElement("input");
     tempInput.value = account.walletAddress;
     document.body.appendChild(tempInput);
-    
+
     // Select the input's content and copy it to the clipboard
     tempInput.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     document.body.removeChild(tempInput);
-    
+
     // Show a success Swal alert
-    Swal.fire('Copied!', 'Wallet address has been copied to the clipboard', 'success');
+    Swal.fire(
+      "Copied!",
+      "Wallet address has been copied to the clipboard",
+      "success"
+    );
   };
   React.useEffect(() => {
-    
     getFlipgem();
     getTransactions();
     const ctx = document.getElementById("myChart").getContext("2d");
@@ -74,40 +104,30 @@ const Dashboard = () => {
     if (existingChart) {
       existingChart.destroy();
     }
-
+    console.log(transactions.size);
     const myChart = new Chart(ctx, {
       type: "line",
       data: {
         labels: [
-          "Mon",
-          "",
-          "Tue",
-          "",
-          "Wed",
-          "",
-          "Thur",
-          "",
-          "Fri",
-          "",
-          "Sat",
-          "",
-          "Sun",
+          "2023-8-20",
+          "2023-8-20",
+          "2023-8-20",
         ],
         datasets: [
           {
-            label: "Data",
+            label: "FlipGems",
             borderColor: "#4062FF",
             pointBorderColor: "#FFFFFF",
             pointBackgroundColor: "#40BAFF",
             pointBorderWidth: 3,
             pointHoverRadius: 10,
             pointHoverBorderWidth: 3,
-            pointRadius: 0,
-            tension: 0.4,
+            // pointRadius: 0,
+            // tension: 0.4,
             fill: true,
             backgroundColor: gradientFill,
             borderWidth: 3,
-            data: graphdata,
+            data: graphdata.slice(0, 3),
           },
         ],
       },
@@ -137,7 +157,7 @@ const Dashboard = () => {
               display: false,
             },
             min: 0,
-            max: 500,
+            max: 200,
             ticks: {
               stepSize: 10,
               font: {
@@ -196,7 +216,6 @@ const Dashboard = () => {
   return (
     // <iframe src={pref}></iframe>
     <div class="flex">
-   
       {/* <nav class="nav flex flex-column">
         <ul class="nav__menus flex flex-column mb-14">
           <svg
@@ -369,18 +388,35 @@ const Dashboard = () => {
         </div>
         <div class="bg-primary flex flex-justify-between flex-align-center banner">
           <div>
-            <h1 class="text-5xl text-white mb-2">Hello <span style={{color:'gold'}}>{account.firstname}</span>,</h1>
+            <h1 class="text-5xl text-white mb-2">
+              Hello <span style={{ color: "gold" }}>{account.firstname}</span>,
+            </h1>
             <h1 class="text-3xl text-white mb-2">Manage your</h1>
             <h1 class="text-3xl text-white mb-4">FlipGem Portfolio</h1>
           </div>
-          <div class="banner__img" style={{marginRight:"-10rem",marginTop:"1.5rem"}}>
-            <img src="./flipgem.png" height={320}  alt="banner" />
+          <div
+            class="banner__img"
+            style={{ marginRight: "-10rem", marginTop: "1.5rem" }}
+          >
+            <img src="./flipgem.png" height={320} alt="banner" />
           </div>
         </div>
-        <h2 class="text-2xl mb-5">My Portfolio <Tooltip title="Copy Wallet Address"><Button onClick={handleCopy}><CopyAllOutlined /></Button></Tooltip> </h2>
+        <h2 class="text-2xl mb-5">
+          My Portfolio{" "}
+          <Tooltip title="Copy Wallet Address">
+            <Button onClick={handleCopy}>
+              <CopyAllOutlined />
+            </Button>
+          </Tooltip>{" "}
+        </h2>
         <div class="portos">
           <div class="flex flex-justify-begin flex-align-center bg-white porto">
-           <img src="./gem.png" height={80} style={{marginRight:"1rem"}} alt="" />
+            <img
+              src="./gem.png"
+              height={80}
+              style={{ marginRight: "1rem" }}
+              alt=""
+            />
             <div class="mt-1">
               <div class="flex flex-align-center flex-justify-between mb-2">
                 <p class="text-xl mr-4">
@@ -503,7 +539,7 @@ const Dashboard = () => {
           </div>
         </div>
         <h2 class="text-2xl mb-4">Accounts</h2>
-        <div class="card flex flex-align-center flex-justify-center flex-column mb-4" >
+        <div class="card flex flex-align-center flex-justify-center flex-column mb-4">
           <img src="./gem.png" height={50} alt="" />
           <h2 class="text-2xl text-white text-bold mt-2 mb-2">{flipgem} FGM</h2>
           <p class="text-bold text-white flex flex-align-center">
@@ -524,11 +560,14 @@ const Dashboard = () => {
           </p>
         </div>
         <div class="flex flex-align-center flex-justify-between mb-8 ">
-          <Link to="/coupons" style={{textDecoration:'none'}}>
-          <button style={{cursor:'pointer',width:"277px"}} class="button bg-primary text-white flex flex-align-center flex-justify-center px-4 py-4" >
-            <ShoppingBagRounded style={{fontSize:"1.5rem"}}/>
-            <span style={{fontSize:"1.5rem"}} >Coupons</span>
-          </button>
+          <Link to="/coupons" style={{ textDecoration: "none" }}>
+            <button
+              style={{ cursor: "pointer", width: "277px" }}
+              class="button bg-primary text-white flex flex-align-center flex-justify-center px-4 py-4"
+            >
+              <ShoppingBagRounded style={{ fontSize: "1.5rem" }} />
+              <span style={{ fontSize: "1.5rem" }}>Coupons</span>
+            </button>
           </Link>
           {/* <button
             style={{ width: "8rem", cursor:'pointer' }}
@@ -538,31 +577,59 @@ const Dashboard = () => {
             <span>Store</span>
           </button> */}
         </div>
-         {isloading?<div className="text-2xl mt-6 mb-4 text-bold" style={{color:"#2874f0"}}>Fetching Transactions</div>:
-         (transactions.length!==0?
-        <h2 class="text-2xl mt-6 mb-4">Recent Transactions</h2>:(<div> <h2 class="text-2xl mt-6 mb-4">Recent Transactions</h2><p className="text-bold" style={{color:'#ADADC9', marginLeft:'3rem'}}>No Transactions Yet</p></div>))}
-        <div class="transactions" >
-         
-          {transactions.map((transaction) => (
-            
-            <div class="transaction flex flex-align-center flex-justify-between mb-4">
-            
-            <div class="flex flex-align-center flex-justify-between">
-              <img src="./gem.png" height={45} alt="" className="mr-3" />
-              <div style={{fontSize:"1rem"}} >
-              {transaction.to === account.walletAddress ? 
-            <p class="text-bold">FlipGem <br /> Rewarded</p>
-            :<p class="text-bold">FlipGem <br/> Deducted</p>}
-             
-                <small class="text-bold text-gray-500">{transaction.timestamp}</small>
-              </div>
-            </div>
-            {transaction.to === account.walletAddress ? 
-            <p class="text-bold text-success">+{transaction.amount} <br /> FGM</p>
-            :<p class="text-bold" style={{color:"red"}}>-{transaction.amount} <br /> FGM</p>}
+        {isloading ? (
+          <div
+            className="text-2xl mt-6 mb-4 text-bold"
+            style={{ color: "#2874f0" }}
+          >
+            Fetching Transactions
           </div>
-            ))}
-         
+        ) : transactions.length !== 0 ? (
+          <h2 class="text-2xl mt-6 mb-4">Recent Transactions</h2>
+        ) : (
+          <div>
+            {" "}
+            <h2 class="text-2xl mt-6 mb-4">Recent Transactions</h2>
+            <p
+              className="text-bold"
+              style={{ color: "#ADADC9", marginLeft: "3rem" }}
+            >
+              No Transactions Yet
+            </p>
+          </div>
+        )}
+        <div class="transactions">
+          {transactions.map((transaction) => (
+            <div class="transaction flex flex-align-center flex-justify-between mb-4">
+              <div class="flex flex-align-center flex-justify-between">
+                <img src="./gem.png" height={45} alt="" className="mr-3" />
+                <div style={{ fontSize: "1rem" }}>
+                  {transaction.to === account.walletAddress ? (
+                    <p class="text-bold">
+                      FlipGem <br /> Rewarded
+                    </p>
+                  ) : (
+                    <p class="text-bold">
+                      FlipGem <br /> Deducted
+                    </p>
+                  )}
+
+                  <small class="text-bold text-gray-500">
+                    {transaction.timestamp}
+                  </small>
+                </div>
+              </div>
+              {transaction.to === account.walletAddress ? (
+                <p class="text-bold text-success">
+                  +{transaction.amount} <br /> FGM
+                </p>
+              ) : (
+                <p class="text-bold" style={{ color: "red" }}>
+                  -{transaction.amount} <br /> FGM
+                </p>
+              )}
+            </div>
+          ))}
         </div>
       </section>
     </div>

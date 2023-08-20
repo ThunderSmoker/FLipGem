@@ -20,6 +20,7 @@ export const signup = (userData) => async (dispatch) => {
   dispatch(signupRequest());
   try {
     const response = await api.authenticateSignup(userData);
+    console.log(response);
     dispatch(signupSuccess(response.data));
   } catch (error) {
     dispatch(signupFailure(error));

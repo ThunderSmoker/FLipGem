@@ -8,8 +8,8 @@ const About = () => {
             <div id="about-us-section">
                 <div className="about-us-image">
                     <img
-                        src="https://digitalupgrade.com/images/lobbyimage_1.jpg"
-                        width="808"
+                        src="./team.jpg"
+                        width="700"
                         height="458"
                         alt="Lobby Image"
                     />
