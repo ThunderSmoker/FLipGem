@@ -8,7 +8,7 @@ const About = () => {
             <div id="about-us-section">
                 <div className="about-us-image">
                     <img
-                        src="./team.jpg"
+                        src="./team1.jpg"
                         width="700"
                         height="458"
                         alt="Lobby Image"
